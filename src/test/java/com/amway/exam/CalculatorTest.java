@@ -17,8 +17,9 @@ public class CalculatorTest {
      */
     @Test
     public void testCalculator() {
+        // String input = "1+2\nexit\n";
+        calculator.setInput(new java.util.Scanner(System.in));
         calculator.calculator();
     }
-
 
 }

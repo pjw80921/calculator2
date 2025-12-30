@@ -8,37 +8,37 @@ import java.util.Scanner;
  * 题目：写一个计算器类（Calculator），可以实现两个数的加、减、乘、除运算，并可以进行undo和redo操作
  *
  * 功能：
- *  1. 实现模拟计算器的功能，可以实现两个数的加、减、乘、除运算
- *  2. 可以进行redo操作，重新执行上一次输入并输出结果
- *  3. 可以进行undo操作，回退到上上次操作的结束值，可多次undo，但是undo不可撤销
- *  4. 可以重新复位，并重新输入计数
- *  5. 可以手动关闭程序
+ * 1. 实现模拟计算器的功能，可以实现两个数的加、减、乘、除运算
+ * 2. 可以进行redo操作，重新执行上一次输入并输出结果
+ * 3. 可以进行undo操作，回退到上上次操作的结束值，可多次undo，但是undo不可撤销
+ * 4. 可以重新复位，并重新输入计数
+ * 5. 可以手动关闭程序
  *
  * 核心方法 {@link com.amway.exam.Calculator#calculator()}
  *
  * 亮点：
- *  1. 工程化思想编写
- *  2. 抽象数据模型
- *  3. 代码结构良好，每个功能分支抽取成单独的方法
- *  4. 基本没有重复的代码量
+ * 1. 工程化思想编写
+ * 2. 抽象数据模型
+ * 3. 代码结构良好，每个功能分支抽取成单独的方法
+ * 4. 基本没有重复的代码量
  *
  *
  * 存储容器，存储每次输入的数据
  * 输入1+2，数据存储:
  * +------+
- * | 1+2  |
+ * | 1+2 |
  * +------+
  * 输入*3:
  * +------+------+
- * | 1+2  | 3*3  |
+ * | 1+2 | 3*3 |
  * +------+------+
  * 输入r(redo):
  * +------+------+------+
- * | 1+2  | 3*3  | 9*3  |
+ * | 1+2 | 3*3 | 9*3 |
  * +------+------+------+
  * 输入u(undo):
  * +------+------+
- * | 1+2  | 3*3  |
+ * | 1+2 | 3*3 |
  * +------+------+
  *
  *
@@ -46,8 +46,7 @@ import java.util.Scanner;
  */
 public class Calculator {
 
-
-    private final Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
     /**
      * 存每次输入的信息的结构体的容器
      */
@@ -73,7 +72,8 @@ public class Calculator {
      */
     private static final String EXIT = "exit";
 
-    private Calculator() {}
+    private Calculator() {
+    }
 
     private static Calculator calculator = new Calculator();
 
@@ -84,6 +84,13 @@ public class Calculator {
         return calculator;
     }
 
+    /**
+     * For testing purpose only
+     */
+    void setInput(Scanner input) {
+        this.input = input;
+    }
+
     public void calculator() {
 
         // 这一层for是为了输入复位
@@ -92,7 +99,7 @@ public class Calculator {
             boolean isFirstInput = true;
 
             // 第一次输入，这一层用for是为了在输入错误的时候可以重新输入
-            for (; ; ) {
+            for (;;) {
                 println("请输出表达式，仅支持两个数的加减乘除，例如1.2+5，系统会计算并输出6.2。");
                 try {
                     String input = input();
@@ -100,13 +107,15 @@ public class Calculator {
                 } catch (BizException e) {
                     println(e.getMessage());
                     continue;
+                } catch (ExitException e) {
+                    return;
                 }
                 isFirstInput = false;
                 break;
             }
 
             // 后续输入，可以循环输入
-            for (; ; ) {
+            for (;;) {
                 println("请继续输入计算，例如:+2，会计算并输出'上个输出值'+2的值。输入u回退到上个操作，输入r再次重复上个操作，输入c清空历史操作，输入exit退出程序。");
                 try {
                     String input = input();
@@ -120,6 +129,8 @@ public class Calculator {
                 } catch (BizException e) {
                     println(e.getMessage());
                     continue;
+                } catch (ExitException e) {
+                    return;
                 }
             }
         }
@@ -283,7 +294,7 @@ public class Calculator {
     private void isExit(String input) {
         if (EXIT.equals(input)) {
             println("bye");
-            System.exit(0);
+            throw new ExitException();
         }
     }
 
@@ -348,5 +359,7 @@ public class Calculator {
 
     }
 
+    private static class ExitException extends RuntimeException {
+    }
 
 }
