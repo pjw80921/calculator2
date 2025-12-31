@@ -2,14 +2,13 @@ package com.amway.exam.original_version;
 
 import org.junit.Test;
 
-import com.amway.exam.original_version.Calculator;
-
 /**
  * 计算器测试类
  *
  * @author pengjunwei
  */
 public class CalculatorTest {
+
 
     private Calculator calculator = Calculator.getInstance();
 

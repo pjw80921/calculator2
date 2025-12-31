@@ -1,4 +1,4 @@
-package com.amway.exam;
+package com.amway.exam.original_version;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Scanner;
  * 4. 可以重新复位，并重新输入计数
  * 5. 可以手动关闭程序
  *
- * 核心方法 {@link com.amway.exam.Calculator#calculator()}
+ * 核心方法 {@link com.amway.exam.original_version.Calculator#calculator()}
  *
  * 亮点：
  * 1. 工程化思想编写
@@ -87,7 +87,7 @@ public class Calculator {
     /**
      * For testing purpose only
      */
-    void setInput(Scanner input) {
+    public void setInput(Scanner input) {
         this.input = input;
     }
 

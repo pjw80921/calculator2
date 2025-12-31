@@ -1,4 +1,4 @@
-package com.amway.exam;
+package com.amway.exam.original_version;
 
 public class App {
     public static void main(String[] args) {
