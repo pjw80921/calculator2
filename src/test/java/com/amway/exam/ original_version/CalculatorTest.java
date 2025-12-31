@@ -1,6 +1,8 @@
-package com.amway.exam;
+package com.amway.exam.original_version;
 
 import org.junit.Test;
+
+import com.amway.exam.original_version.Calculator;
 
 /**
  * 计算器测试类
